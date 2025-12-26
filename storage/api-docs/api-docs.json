@@ -129,7 +129,6 @@
                     "Tasks"
                 ],
                 "summary": "Update a task",
-                "description": "Update the specified resource in storage.",
                 "operationId": "85377ff0e935f093dd75ea6886923dbc",
                 "parameters": [
                     {
@@ -282,12 +281,6 @@
                 "type": "object"
             },
             "TaskRequest": {
-                "required": [
-                    "title",
-                    "description",
-                    "status",
-                    "executor_id"
-                ],
                 "properties": {
                     "title": {
                         "example": "Title"

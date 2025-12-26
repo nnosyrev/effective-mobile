@@ -8,7 +8,6 @@ use Illuminate\Validation\Rule;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    required: ['title', 'description', 'status', 'executor_id'],
     properties: [
         new OA\Property(property: 'title', example: 'Title'),
         new OA\Property(property: 'description', example: 'Description'),

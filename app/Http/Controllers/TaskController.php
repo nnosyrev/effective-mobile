@@ -80,9 +80,6 @@ final readonly class TaskController extends Controller
         return new TaskResource($task);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     #[OA\Put(path: '/tasks/{id}', tags: ['Tasks'], summary: 'Update a task')]
     #[OA\RequestBody(
         required: true,
