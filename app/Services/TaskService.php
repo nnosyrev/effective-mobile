@@ -21,4 +21,10 @@ final readonly class TaskService
 
         return $task;
     }
+
+    public function findOneByIdOrFail(int $id): Task
+    {
+        return Task::where('id', '=', $id)
+            ->firstOrFail();
+    }
 }

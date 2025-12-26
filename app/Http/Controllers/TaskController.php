@@ -46,12 +46,21 @@ final readonly class TaskController extends Controller
         return new TaskResource($task);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    #[OA\Get(path: '/api/tasks/{id}', tags: ['Tasks'], summary: 'Get a task')]
+    #[OA\Response(
+        response: 200,
+        description: 'Successful operation',
+        content: new OA\JsonContent(ref: TaskResource::class)
+    )]
+    #[OA\Response(
+        response: 404,
+        description: 'Error: Not Found',
+    )]
+    public function show(#[OA\PathParameter] int $id)
     {
-        //
+        $task = $this->taskService->findOneByIdOrFail($id);
+
+        return new TaskResource($task);
     }
 
     /**
