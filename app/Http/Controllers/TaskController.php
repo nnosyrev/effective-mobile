@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TaskRequest;
 use App\Http\Resources\MessageResource;
 use App\Http\Resources\TaskResource;
-use App\Services\TaskService;
+use App\Services\TaskServiceInterface;
 use OpenApi\Attributes as OA;
 
 final readonly class TaskController extends Controller
 {
-    public function __construct(private TaskService $taskService) {}
+    public function __construct(private TaskServiceInterface $taskService) {}
 
     #[OA\Get(path: '/api/tasks', summary: "Get list of tasks", tags: ['Tasks'])]
     #[OA\Response(
@@ -55,6 +55,7 @@ final readonly class TaskController extends Controller
     #[OA\Response(
         response: 404,
         description: 'Error: Not Found',
+        content: new OA\JsonContent(ref: MessageResource::class)
     )]
     public function show(#[OA\PathParameter] int $id)
     {
@@ -80,6 +81,7 @@ final readonly class TaskController extends Controller
     #[OA\Response(
         response: 404,
         description: 'Error: Not Found',
+        content: new OA\JsonContent(ref: MessageResource::class)
     )]
     #[OA\Response(
         response: 422,

@@ -6,11 +6,17 @@ use App\Http\Requests\TaskRequest;
 use App\Models\Task;
 use Illuminate\Database\Eloquent\Collection;
 
-final readonly class TaskService
+final readonly class TaskService implements TaskServiceInterface
 {
     public function findAll(): Collection
     {
         return Task::all();
+    }
+
+    public function findOneByIdOrFail(int $id): Task
+    {
+        return Task::where('id', '=', $id)
+            ->firstOrFail();
     }
 
     public function create(TaskRequest $request): Task
@@ -36,12 +42,6 @@ final readonly class TaskService
         $task = $this->findOneByIdOrFail($id);
 
         $this->doDestroy($task);
-    }
-
-    public function findOneByIdOrFail(int $id): Task
-    {
-        return Task::where('id', '=', $id)
-            ->firstOrFail();
     }
 
     private function doUpdate(Task $task, TaskRequest $request): Task

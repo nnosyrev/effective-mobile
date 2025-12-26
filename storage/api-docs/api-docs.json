@@ -82,7 +82,14 @@
                         }
                     },
                     "404": {
-                        "description": "Error: Not Found"
+                        "description": "Error: Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MessageResource"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -126,7 +133,14 @@
                         }
                     },
                     "404": {
-                        "description": "Error: Not Found"
+                        "description": "Error: Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MessageResource"
+                                }
+                            }
+                        }
                     },
                     "422": {
                         "description": "Error: Unprocessable Content"
