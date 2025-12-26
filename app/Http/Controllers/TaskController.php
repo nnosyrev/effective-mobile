@@ -14,7 +14,7 @@ final readonly class TaskController extends Controller
 {
     public function __construct(private TaskServiceInterface $taskService) {}
 
-    #[OA\Get(path: '/api/tasks', summary: "Get list of tasks", tags: ['Tasks'])]
+    #[OA\Get(path: '/tasks', summary: "Get list of tasks", tags: ['Tasks'])]
     #[OA\Parameter(name: 'page', in: 'query')]
     #[OA\Parameter(name: 'per_page', in: 'query')]
     #[OA\Response(
@@ -28,7 +28,7 @@ final readonly class TaskController extends Controller
         return TaskResource::collection($tasks);
     }
 
-    #[OA\Post(path: '/api/tasks', tags: ['Tasks'], summary: 'Create a task')]
+    #[OA\Post(path: '/tasks', tags: ['Tasks'], summary: 'Create a task')]
     #[OA\RequestBody(
         required: true,
         description: 'New Task',
@@ -50,7 +50,7 @@ final readonly class TaskController extends Controller
         return new TaskResource($task);
     }
 
-    #[OA\Get(path: '/api/tasks/{id}', tags: ['Tasks'], summary: 'Get a task')]
+    #[OA\Get(path: '/tasks/{id}', tags: ['Tasks'], summary: 'Get a task')]
     #[OA\Response(
         response: 200,
         description: 'Successful operation',
@@ -71,7 +71,7 @@ final readonly class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    #[OA\Put(path: '/api/tasks/{id}', tags: ['Tasks'], summary: 'Update a task')]
+    #[OA\Put(path: '/tasks/{id}', tags: ['Tasks'], summary: 'Update a task')]
     #[OA\RequestBody(
         required: true,
         description: 'New data for a task',
@@ -98,7 +98,7 @@ final readonly class TaskController extends Controller
         return new TaskResource($task);
     }
 
-    #[OA\Delete(path: '/api/tasks/{id}', tags: ['Tasks'], summary: 'Delete a task')]
+    #[OA\Delete(path: '/tasks/{id}', tags: ['Tasks'], summary: 'Delete a task')]
     #[OA\Response(
         response: 200,
         description: 'Successful operation',
