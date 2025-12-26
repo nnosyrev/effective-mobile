@@ -6,6 +6,7 @@ use App\Http\Requests\TaskRequest;
 use App\Http\Resources\MessageResource;
 use App\Http\Resources\TaskResource;
 use App\Services\TaskServiceInterface;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use OpenApi\Attributes as OA;
 
 final readonly class TaskController extends Controller
@@ -17,7 +18,7 @@ final readonly class TaskController extends Controller
         response: 200,
         description: 'Successful operation',
     )]
-    public function index()
+    public function index(): ResourceCollection
     {
         $tasks = $this->taskService->findAll();
 
@@ -39,7 +40,7 @@ final readonly class TaskController extends Controller
         response: 422,
         description: 'Error: Unprocessable Content'
     )]
-    public function store(TaskRequest $request)
+    public function store(TaskRequest $request): TaskResource
     {
         $task = $this->taskService->create($request);
 
@@ -57,7 +58,7 @@ final readonly class TaskController extends Controller
         description: 'Error: Not Found',
         content: new OA\JsonContent(ref: MessageResource::class)
     )]
-    public function show(#[OA\PathParameter] int $id)
+    public function show(#[OA\PathParameter] int $id): TaskResource
     {
         $task = $this->taskService->findOneByIdOrFail($id);
 
@@ -87,7 +88,7 @@ final readonly class TaskController extends Controller
         response: 422,
         description: 'Error: Unprocessable Content'
     )]
-    public function update(#[OA\PathParameter] int $id, TaskRequest $request)
+    public function update(#[OA\PathParameter] int $id, TaskRequest $request): TaskResource
     {
         $task = $this->taskService->update($id, $request);
 
@@ -105,7 +106,7 @@ final readonly class TaskController extends Controller
         description: 'Error: Not Found',
         content: new OA\JsonContent(ref: MessageResource::class)
     )]
-    public function destroy(#[OA\PathParameter] int $id)
+    public function destroy(#[OA\PathParameter] int $id): MessageResource
     {
         $this->taskService->destroy($id);
 
