@@ -6,6 +6,7 @@ use App\Http\Requests\TaskRequest;
 use App\Http\Resources\MessageResource;
 use App\Http\Resources\TaskResource;
 use App\Services\TaskServiceInterface;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use OpenApi\Attributes as OA;
 
@@ -14,13 +15,15 @@ final readonly class TaskController extends Controller
     public function __construct(private TaskServiceInterface $taskService) {}
 
     #[OA\Get(path: '/api/tasks', summary: "Get list of tasks", tags: ['Tasks'])]
+    #[OA\Parameter(name: 'page', in: 'query')]
+    #[OA\Parameter(name: 'per_page', in: 'query')]
     #[OA\Response(
         response: 200,
         description: 'Successful operation',
     )]
-    public function index(): ResourceCollection
+    public function index(Request $request): ResourceCollection
     {
-        $tasks = $this->taskService->findAll();
+        $tasks = $this->taskService->findAll($request);
 
         return TaskResource::collection($tasks);
     }

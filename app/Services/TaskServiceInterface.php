@@ -4,11 +4,12 @@ namespace App\Services;
 
 use App\Http\Requests\TaskRequest;
 use App\Models\Task;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 interface TaskServiceInterface
 {
-    public function findAll(): Collection;
+    public function findAll(Request $request): LengthAwarePaginator;
 
     public function findOneByIdOrFail(int $id): Task;
 

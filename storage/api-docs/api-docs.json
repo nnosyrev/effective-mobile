@@ -13,6 +13,16 @@
                 ],
                 "summary": "Get list of tasks",
                 "operationId": "471d938a3bfaeb6fbd981d7c3e2728b0",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation"

@@ -4,13 +4,18 @@ namespace App\Services;
 
 use App\Http\Requests\TaskRequest;
 use App\Models\Task;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 final readonly class TaskService implements TaskServiceInterface
 {
-    public function findAll(): Collection
+    private const int DEFAULT_PER_PAGE = 10;
+
+    public function findAll(Request $request): LengthAwarePaginator
     {
-        return Task::all();
+        $perPage = (int) $request->query('per_page', self::DEFAULT_PER_PAGE);
+
+        return Task::paginate($perPage);
     }
 
     public function findOneByIdOrFail(int $id): Task
