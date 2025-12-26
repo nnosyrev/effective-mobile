@@ -18,6 +18,82 @@
                         "description": "Successful operation"
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Create a task",
+                "operationId": "f803ebdb2300acdb7e93bbe8d0b9a2e8",
+                "requestBody": {
+                    "description": "New Task",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskResource"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error: Unprocessable Content"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "TaskRequest": {
+                "required": [
+                    "title",
+                    "description",
+                    "status",
+                    "executor_id"
+                ],
+                "properties": {
+                    "title": {
+                        "example": "Title"
+                    },
+                    "description": {
+                        "example": "Description"
+                    },
+                    "status": {
+                        "format": "string",
+                        "example": "planned"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskResource": {
+                "properties": {
+                    "id": {
+                        "example": "2"
+                    },
+                    "title": {
+                        "example": "Title"
+                    },
+                    "description": {
+                        "example": "Description"
+                    },
+                    "status": {
+                        "format": "string",
+                        "example": "planned"
+                    }
+                },
+                "type": "object"
             }
         }
     },
