@@ -8,9 +8,7 @@ use Illuminate\Http\Request;
 
 final readonly class TaskController extends Controller
 {
-    public function __construct(private TaskService $taskService)
-    {
-    }
+    public function __construct(private TaskService $taskService) {}
 
     /**
      * Display a listing of the resource.
