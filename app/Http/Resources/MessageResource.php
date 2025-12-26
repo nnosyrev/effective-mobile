@@ -11,7 +11,7 @@ use OpenApi\Attributes as OA;
         new OA\Property(property: 'message', example: 'Text message.'),
     ]
 )]
-class MessageResource extends JsonResource
+final class MessageResource extends JsonResource
 {
     private string $message;
 
