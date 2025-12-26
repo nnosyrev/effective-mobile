@@ -25,7 +25,28 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/TaskResource"
+                                            }
+                                        },
+                                        "links": {
+                                            "$ref": "#/components/schemas/PaginatorLinks"
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/PaginatorMeta"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -200,6 +221,66 @@
     },
     "components": {
         "schemas": {
+            "PaginatorMeta": {
+                "properties": {
+                    "current_page": {
+                        "type": "integer"
+                    },
+                    "from": {
+                        "type": "integer"
+                    },
+                    "last_page": {
+                        "type": "integer"
+                    },
+                    "links": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "url": {
+                                    "example": "http://localhost/api/entities?page=1"
+                                },
+                                "label": {
+                                    "example": "&laquo; Previous"
+                                },
+                                "active": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "path": {
+                        "example": "http://localhost/api/entities"
+                    },
+                    "per_page": {
+                        "type": "integer"
+                    },
+                    "to": {
+                        "type": "integer"
+                    },
+                    "total": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "PaginatorLinks": {
+                "properties": {
+                    "first": {
+                        "example": "http://localhost/api/entities?page=1"
+                    },
+                    "last": {
+                        "example": "http://localhost/api/entities?page=5"
+                    },
+                    "prev": {
+                        "example": "http://localhost/api/entities?page=1"
+                    },
+                    "next": {
+                        "example": "http://localhost/api/entities?page=3"
+                    }
+                },
+                "type": "object"
+            },
             "TaskRequest": {
                 "required": [
                     "title",

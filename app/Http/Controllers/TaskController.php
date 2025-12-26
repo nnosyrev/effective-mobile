@@ -20,6 +20,18 @@ final readonly class TaskController extends Controller
     #[OA\Response(
         response: 200,
         description: 'Successful operation',
+        content: new OA\JsonContent(
+            type: 'object',
+            properties: [
+                new OA\Property(
+                    property: 'data',
+                    type: 'array',
+                    items: new OA\Items(ref: TaskResource::class)
+                ),
+                new OA\Property(property: 'links', ref: '#/components/schemas/PaginatorLinks'),
+                new OA\Property(property: 'meta', ref: '#/components/schemas/PaginatorMeta'),
+            ]
+        )
     )]
     public function index(Request $request): ResourceCollection
     {
