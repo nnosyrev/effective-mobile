@@ -31,6 +31,13 @@ final readonly class TaskService
         return $task;
     }
 
+    public function destroy(int $id): void
+    {
+        $task = $this->findOneByIdOrFail($id);
+
+        $this->doDestroy($task);
+    }
+
     public function findOneByIdOrFail(int $id): Task
     {
         return Task::where('id', '=', $id)
@@ -43,5 +50,10 @@ final readonly class TaskService
         $task->save();
 
         return $task;
+    }
+
+    private function doDestroy(Task $task): void
+    {
+        $task->delete();
     }
 }

@@ -132,6 +132,45 @@
                         "description": "Error: Unprocessable Content"
                     }
                 }
+            },
+            "delete": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Delete a task",
+                "operationId": "ad582480cd57c2a4e3b6a426943eeca5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MessageResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error: Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MessageResource"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     },
@@ -154,6 +193,14 @@
                     "status": {
                         "format": "string",
                         "example": "planned"
+                    }
+                },
+                "type": "object"
+            },
+            "MessageResource": {
+                "properties": {
+                    "message": {
+                        "example": "Text message."
                     }
                 },
                 "type": "object"

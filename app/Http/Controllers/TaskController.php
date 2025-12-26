@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskRequest;
+use App\Http\Resources\MessageResource;
 use App\Http\Resources\TaskResource;
 use App\Services\TaskService;
 use OpenApi\Attributes as OA;
@@ -91,11 +92,22 @@ final readonly class TaskController extends Controller
         return new TaskResource($task);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    #[OA\Delete(path: '/api/tasks/{id}', tags: ['Tasks'], summary: 'Delete a task')]
+    #[OA\Response(
+        response: 200,
+        description: 'Successful operation',
+        content: new OA\JsonContent(ref: MessageResource::class)
+    )]
+    #[OA\Response(
+        response: 404,
+        description: 'Error: Not Found',
+        content: new OA\JsonContent(ref: MessageResource::class)
+    )]
+    public function destroy(#[OA\PathParameter] int $id)
     {
-        //
+        $this->taskService->destroy($id);
+
+        return new MessageResource(null)
+            ->setMessage('The task was successfully deleted');
     }
 }
