@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Resources\TaskResource;
 use App\Services\TaskService;
 use Illuminate\Http\Request;
+use OpenApi\Attributes as OA;
 
 final readonly class TaskController extends Controller
 {
     public function __construct(private TaskService $taskService) {}
 
-    /**
-     * Display a listing of the resource.
-     */
+    #[OA\Get(path: '/api/tasks', summary: "Get list of tasks", tags: ['Tasks'])]
+    #[OA\Response(
+        response: 200,
+        description: 'Successful operation',
+    )]
     public function index()
     {
         $tasks = $this->taskService->findAll();
