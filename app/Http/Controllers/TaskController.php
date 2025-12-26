@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Services\TaskService;
-use Illuminate\Http\Request;
 use OpenApi\Attributes as OA;
 
 final readonly class TaskController extends Controller
@@ -66,9 +65,30 @@ final readonly class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    #[OA\Put(path: '/api/tasks/{id}', tags: ['Tasks'], summary: 'Update a task')]
+    #[OA\RequestBody(
+        required: true,
+        description: 'New data for a task',
+        content: new OA\JsonContent(ref: TaskRequest::class)
+    )]
+    #[OA\Response(
+        response: 200,
+        description: 'Successful operation',
+        content: new OA\JsonContent(ref: TaskResource::class)
+    )]
+    #[OA\Response(
+        response: 404,
+        description: 'Error: Not Found',
+    )]
+    #[OA\Response(
+        response: 422,
+        description: 'Error: Unprocessable Content'
+    )]
+    public function update(#[OA\PathParameter] int $id, TaskRequest $request)
     {
-        //
+        $task = $this->taskService->update($id, $request);
+
+        return new TaskResource($task);
     }
 
     /**

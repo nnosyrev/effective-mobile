@@ -22,9 +22,26 @@ final readonly class TaskService
         return $task;
     }
 
+    public function update(int $id, TaskRequest $request): Task
+    {
+        $task = $this->findOneByIdOrFail($id);
+
+        $task = $this->doUpdate($task, $request);
+
+        return $task;
+    }
+
     public function findOneByIdOrFail(int $id): Task
     {
         return Task::where('id', '=', $id)
             ->firstOrFail();
+    }
+
+    private function doUpdate(Task $task, TaskRequest $request): Task
+    {
+        $task->fill($request->validated());
+        $task->save();
+
+        return $task;
     }
 }
